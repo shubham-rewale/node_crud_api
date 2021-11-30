@@ -8,6 +8,7 @@ const hpp = require('hpp');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const universalErrorHandler = require('./controllers/errorControllers')
@@ -30,6 +31,10 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 app.use(helmet({contentSecurityPolicy: false,}));
+
+app.use(cors());
+
+app.options('*', cors());
 
 app.use(express.json( {limit:'10kb'}));
 
